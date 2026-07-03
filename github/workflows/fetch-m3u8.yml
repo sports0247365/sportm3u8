@@ -1,0 +1,45 @@
+name: Fetch M3U8 Links and Push to Firebase
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # Har 10 minute baad chalega
+  workflow_dispatch: {}       # Manually bhi "Run workflow" se chala sakte hain
+
+# Agar ek run chal raha ho to naya trigger usay cancel kar dega,
+# taake do runs ek sath Firebase par push na karein
+concurrency:
+  group: m3u8-fetch
+  cancel-in-progress: true
+
+jobs:
+  fetch-and-push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8   # Selenium hang ho jaye to run zyada der na latke
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install selenium firebase-admin
+
+      - name: Run fetch script
+        env:
+          # In secrets mein pura service-account JSON ka CONTENT paste
+          # karna hai (file upload nahi) - Settings > Secrets and
+          # variables > Actions > New repository secret
+          FIREBASE_CRED_1: ${{ secrets.FIREBASE_CRED_1 }}
+          FIREBASE_CRED_2: ${{ secrets.FIREBASE_CRED_2 }}
+          FIREBASE_CRED_3: ${{ secrets.FIREBASE_CRED_3 }}
+          TARGET_DBS: "1,2,3"   # Chahein to "1" ya "1,2" bhi kar sakte hain
+        run: python scripts/fetch_m3u8.py
