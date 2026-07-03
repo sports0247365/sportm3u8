@@ -56,7 +56,7 @@ def init_firebase():
         cred2 = credentials.Certificate(json.loads(cred2_json))
         firebase_admin.initialize_app(
             cred2,
-            {"databaseURL": "https://livefootballtvstreaminghd.firebaseio.com/"},
+            {"databaseURL": "https://malik-rizvi-default-rtdb.firebaseio.com/"},
             name="app2",
         )
 
@@ -67,7 +67,7 @@ def init_firebase():
         cred3 = credentials.Certificate(json.loads(cred3_json))
         firebase_admin.initialize_app(
             cred3,
-            {"databaseURL": "https://ticktockfootball.firebaseio.com/"},
+            {"databaseURL": "https://malik-rizvi-default-rtdb.firebaseio.com/"},
             name="app3",
         )
 
