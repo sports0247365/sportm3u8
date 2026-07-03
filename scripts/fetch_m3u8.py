@@ -22,13 +22,16 @@ user_agent = (
 
 # List of target URLs
 target_urls = [
-    "https://w4.sportsonlline.click/channels/hd/hd1.php"
+    "https://w4.sportsonlline.click/channels/hd/hd1.php",
+    "https://w4.sportsonlline.click/channels/hd/hd2.php",
+    "https://w4.sportsonlline.click/channels/hd/hd3.php",
+    "https://w4.sportsonlline.click/channels/hd/hd4.php"
 ]
 
 # Custom node locations for each database (index -> node name)
-node_locations_app1 = [0]
-node_locations_app2 = [0]
-node_locations_app3 = [0]
+node_locations_app1 = [0,1,2,3]
+node_locations_app2 = [0,1,2,3]
+node_locations_app3 = [0,1,2,3]
 # =================================
 
 
