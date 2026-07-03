@@ -2,7 +2,7 @@ name: Fetch M3U8 Links and Push to Firebase
 
 on:
   schedule:
-    - cron: "*/20 * * * *"   # Har 10 minute baad chalega
+    - cron: "*/20 * * * *"   # Har 20 minute baad chalega
   workflow_dispatch: {}       # Manually bhi "Run workflow" se chala sakte hain
 
 # Agar ek run chal raha ho to naya trigger usay cancel kar dega,
