@@ -45,7 +45,7 @@ def init_firebase():
         cred1 = credentials.Certificate(json.loads(cred1_json))
         firebase_admin.initialize_app(
             cred1,
-            {"databaseURL": "https://football-ab964-default-rtdb.firebaseio.com/"},
+            {"databaseURL": "https://malik-rizvi-default-rtdb.firebaseio.com/"},
             name="app1",
         )
 
