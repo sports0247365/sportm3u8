@@ -9,11 +9,10 @@ from selenium.common.exceptions import WebDriverException
 
 # ============ CONFIG ============
 # Kaunsi database(s) mein push karna hai - workflow file mein set hota
-# hai (default: sab teen). Interactive input() ki zarurat nahi ab.
-TARGET_DBS = os.environ.get("TARGET_DBS", "1,2,3")
+# hai (default: dono). Interactive input() ki zarurat nahi ab.
+TARGET_DBS = os.environ.get("TARGET_DBS", "1,2")
 use_db1 = "1" in TARGET_DBS
 use_db2 = "2" in TARGET_DBS
-use_db3 = "3" in TARGET_DBS
 
 user_agent = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -29,9 +28,8 @@ target_urls = [
 ]
 
 # Custom node locations for each database (index -> node name)
-node_locations_app1 = [0,1,2,3]
-node_locations_app2 = [0,1,2,3]
-node_locations_app3 = [0,1,2,3]
+node_locations_app1 = [0, 1, 2, 3]
+node_locations_app2 = [0, 1, 2, 3]
 # =================================
 
 
@@ -59,19 +57,8 @@ def init_firebase():
         cred2 = credentials.Certificate(json.loads(cred2_json))
         firebase_admin.initialize_app(
             cred2,
-            {"databaseURL": "https://malik-rizvi-default-rtdb.firebaseio.com/"},
+            {"databaseURL": "https://rashidtech-7c5c8-default-rtdb.firebaseio.com/"},
             name="app2",
-        )
-
-    if use_db3:
-        cred3_json = os.environ.get("FIREBASE_CRED_3")
-        if not cred3_json:
-            raise RuntimeError("FIREBASE_CRED_3 secret set nahi hai")
-        cred3 = credentials.Certificate(json.loads(cred3_json))
-        firebase_admin.initialize_app(
-            cred3,
-            {"databaseURL": "https://malik-rizvi-default-rtdb.firebaseio.com/"},
-            name="app3",
         )
 
 
@@ -120,7 +107,7 @@ def fetch_m3u8_link(target_url):
         driver.quit()
 
 
-def push_m3u8_link_to_firebase(link, channel_app1, channel_app2, channel_app3):
+def push_m3u8_link_to_firebase(link, channel_app1, channel_app2):
     if use_db1:
         ref1 = db.reference(
             f"/Channels/{channel_app1}/Url", app=firebase_admin.get_app("app1")
@@ -134,13 +121,6 @@ def push_m3u8_link_to_firebase(link, channel_app1, channel_app2, channel_app3):
         )
         ref2.set(link)
         print(f"Saved link to second Firebase at /Channels/{channel_app2}/Url")
-
-    if use_db3:
-        ref3 = db.reference(
-            f"/Channels/{channel_app3}/Url", app=firebase_admin.get_app("app3")
-        )
-        ref3.set(link)
-        print(f"Saved link to third Firebase at /Channels/{channel_app3}/Url")
 
 
 def main():
@@ -164,12 +144,7 @@ def main():
             custom_node_app2 = (
                 node_locations_app2[i] if i < len(node_locations_app2) else i
             )
-            custom_node_app3 = (
-                node_locations_app3[i] if i < len(node_locations_app3) else i
-            )
-            push_m3u8_link_to_firebase(
-                m3u8_link, custom_node_app1, custom_node_app2, custom_node_app3
-            )
+            push_m3u8_link_to_firebase(m3u8_link, custom_node_app1, custom_node_app2)
         else:
             print(f"No link to save for target URL index {i}.")
 
