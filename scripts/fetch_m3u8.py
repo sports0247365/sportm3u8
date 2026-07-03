@@ -27,8 +27,8 @@ target_urls = [
 
 # Custom node locations for each database (index -> node name)
 node_locations_app1 = [0]
-node_locations_app2 = []
-node_locations_app3 = []
+node_locations_app2 = [0]
+node_locations_app3 = [0]
 # =================================
 
 
