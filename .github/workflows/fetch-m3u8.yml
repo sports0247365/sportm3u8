@@ -2,7 +2,7 @@ name: Fetch M3U8 Links and Push to Firebase
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # Har 10 minute baad chalega
+    - cron: "*/20 * * * *"   # Har 10 minute baad chalega
   workflow_dispatch: {}       # Manually bhi "Run workflow" se chala sakte hain
 
 # Agar ek run chal raha ho to naya trigger usay cancel kar dega,
@@ -40,6 +40,5 @@ jobs:
           # variables > Actions > New repository secret
           FIREBASE_CRED_1: ${{ secrets.FIREBASE_CRED_1 }}
           FIREBASE_CRED_2: ${{ secrets.FIREBASE_CRED_2 }}
-          FIREBASE_CRED_3: ${{ secrets.FIREBASE_CRED_3 }}
-          TARGET_DBS: "1,2,3"   # Chahein to "1" ya "1,2" bhi kar sakte hain
+          TARGET_DBS: "1,2"   # Chahein to sirf "1" ya sirf "2" bhi kar sakte hain
         run: python scripts/fetch_m3u8.py
