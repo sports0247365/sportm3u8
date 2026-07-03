@@ -22,11 +22,11 @@ user_agent = (
 
 # List of target URLs
 target_urls = [
-    "https://cdnlivetv.tv/api/v1/channels/player/?name=astro+cricket&code=us&user=cdnlivetv&plan=free"
+    "https://w4.sportsonlline.click/channels/hd/hd1.php"
 ]
 
 # Custom node locations for each database (index -> node name)
-node_locations_app1 = []
+node_locations_app1 = [0]
 node_locations_app2 = []
 node_locations_app3 = []
 # =================================
